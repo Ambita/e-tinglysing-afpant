@@ -37,7 +37,7 @@ En ZIP-fil som inneholder en XML med requestdata ihht. [definert skjema.](xsd/ds
 En ZIP-fil som inneholder en XML med responsdata ihht. gitte xsd.
 Tilknytting av ZIP-fil til forsendelsen kan gjøres ved bruk av BrokerServiceExternalBasicStreamedClient / StreamedPayloadBasicBE.
 		
-#### Om payload elementet *(response)*
+#### Om payload *(response)*
 
 ##### Positiv resultat
 - Må være en xml-fil som er ihht. [definert skjema](xsd/dsbm-1.0.0.xsd).
