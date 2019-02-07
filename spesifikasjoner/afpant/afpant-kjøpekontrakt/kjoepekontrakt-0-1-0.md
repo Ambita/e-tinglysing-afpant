@@ -1,34 +1,22 @@
 # Kjøpekontrakt
+En bank kan sende forespørsel om kjøpekontrakt til en megler basert på kjøpers fødsels og personnummer og eiendomsobjektet som skal finansieres.
+Megler vil besvare forespørselen med en forsendelse som inneholder stukrutrerte data samt en signert versjon av den fulle kontrakten.
+Dersom den faktiske kjøpekontrakten ikke er signert, skal kun den strukturerte delen returneres.
+Dersom forespørselen ikke kan besvares, vil banken få en feilmelding i retur som beskriver hvorfor megler ikke kan besvare forespørselen.
 
-## Forspørsel fra banksystem til meglersystem
-<table>
-	<thead>
-		<tr>
-			<th colspan="4">Manifest metadata (BrokerServiceInitiation.Manifest.PropertyList)</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td><p><strong>Manifest key</strong></p></td>
-			<td><p><strong>Type</strong></p></td>
-			<td><p><strong>Required</strong></p></td>
-			<td><p><strong>Beskrivelse</strong></p></td>
-		</tr>
-		<tr>
-			<td><p>messageType</p></td>
-			<td><p>String</p></td>
-			<td><p>Yes</p></td>
-			<td><p>Denne kan være en av følgende:</p><ul><li>RealEstatePurchaseContractRequest</li></ul></td>
-		</tr>
-  </tbody>
-</table
-<br>
+## Forspørsel om kjøpekontrakt
 
-| *Payload zip-fil* |
-|-------------------| 
-| En ZIP-fil som inneholder en XML med requestdata ihht. [definert skjema.](https://xsd/dsbm-1.0.0.xsd) |
+### Manifest
+(BrokerServiceInitiation.Manifest.PropertyList)
 
-### Requestdata
+|Manifest key|Type|Required|Beskrivelse|
+|--- |--- |--- |--- |
+|messageType|String|Yes|RealEstatePurchaseContractRequest|
+
+### Payload
+En ZIP-fil som inneholder en XML med requestdata ihht. [definert skjema.](xsd/dsbm-1.0.0.xsd)
+
+#### Om payload *(request)*
 - Må være en xml-fil som er i henhold til xsd-filen.
 - Avsenderinfo (orgnr)
 - Kontaktperson
@@ -37,38 +25,23 @@
 - Banks referanse/saksnr
 
 ## Svar fra meglersystem til banksystem
-<table>
-	<thead>
-		<tr>
-			<th colspan="4">Manifest metadata (BrokerServiceInitiation.Manifest.PropertyList)</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td><p><strong>Manifest key</strong></p></td>
-			<td><p><strong>Type</strong></p></td>
-			<td><p><strong>Required</strong></p></td>
-			<td><p><strong>Beskrivelse</strong></p></td>
-		</tr>
-		<tr>
-			<td><p>messageType</p></td>
-			<td><p>String</p></td>
-			<td><p>Yes</p></td>
-			<td><p>Denne kan være en av følgende:</p><ul><li>RealEstatePurchaseContractRespone</li></ul></td>
-		</tr>
-    </tbody>
-</table>
-<table>
-	<thead>
-		<tr><td colspan="4"><strong>Payload (ZIP-fil)</strong></td></tr>
-	</thead>
-	<tbody>
-		<tr><td colspan="4">En ZIP-fil som inneholder en XML med responsdata ihht. gitte xsd.<br>
-		Tilknytting av ZIP-fil til forsendelsen kan gjøres ved bruk av BrokerServiceExternalBasicStreamedClient / StreamedPayloadBasicBE.</td></tr>
-	</tbody>
-</table>
 
-### Xml med informasjon om kjøpekontrakten
-- Må være en xml-fil som er i [henhold til xsd-filen](xsd/dsbm-1.0.0.xsd).
+### Manifest
+(BrokerServiceInitiation.Manifest.PropertyList)
+
+|Manifest key|Type|Required|Beskrivelse|
+|--- |--- |--- |--- |
+|messageType|String|Yes|RealEstatePurchaseContractResponse|
+
+### Payload
+En ZIP-fil som inneholder en XML med responsdata ihht. gitte xsd.
+Tilknytting av ZIP-fil til forsendelsen kan gjøres ved bruk av BrokerServiceExternalBasicStreamedClient / StreamedPayloadBasicBE.
+		
+#### Om payload elementet *(response)*
+
+##### Positiv resultat
+- Må være en xml-fil som er ihht. [definert skjema](xsd/dsbm-1.0.0.xsd).
 - Se eksempel på presentasjon [Eksempel](examples/example.png)
-- Må definer hvor ack/navk-informasjon skal legges
+
+##### Negativt resultat
+- @todo:Må definere hvor ack/navk-informasjon skal legges
