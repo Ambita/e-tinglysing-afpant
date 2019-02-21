@@ -7,6 +7,7 @@ Dersom forespørselen ikke kan besvares, vil banken få en feilmelding i retur s
 
 ## Forspørsel om kjøpekontrakt
 Forespørsel sendes fra bank til megler for å hente kjøpekontrakten for en kunde.
+Det forventes at positivt svar er en kjøpekontrakt som definert under.
 
 ### Manifest
 (BrokerServiceInitiation.Manifest.PropertyList)
@@ -19,12 +20,8 @@ Forespørsel sendes fra bank til megler for å hente kjøpekontrakten for en kun
 En ZIP-fil som inneholder en XML med requestdata ihht. [definert skjema.](xsd/dsbm-1.0.0.xsd)
 
 #### Om payload *(request)*
-- Må være en xml-fil som er i henhold til xsd-filen.
-- Avsenderinfo (orgnr)
-- Kontaktperson
-- Objektinformasjon
-- Kjøper
-- Banks referanse/saksnr
+- En xml-fil som er i henhold til xsd-filen.
+- Se eksempel på presentasjon [Eksempel](examples/kjoepekontrakt-request-example.png)
 
 ## Kjøpekontrakt
 Svar fra meglersystem til banksystem.
@@ -44,7 +41,7 @@ Tilknytting av ZIP-fil til forsendelsen kan gjøres ved bruk av BrokerServiceExt
 
 ##### Positiv resultat
 - Må være en xml-fil som er ihht. [definert skjema](xsd/dsbm-1.0.0.xsd).
-- Se eksempel på presentasjon [Eksempel](examples/example.png)
+- Se eksempel på presentasjon [Eksempel](examples/kjoepekontrakt-example.png)
 
 ##### Negativt resultat
 - @todo:Må definere hvor ack/navk-informasjon skal legges

@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xsl" href="http://localhost:8000/xslt/dsbm-1.0.0.xslt"?>
-<!--<kjoepekontrakt xmlns="https://www.ambita.com"-->
-                <!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
-                <!--xsi:schemaLocation="https://www.ambita.com dsbm-1.0.0.xsd">-->
 <kjoepekontrakt>
-
   <megler id="945811714">
     <foretaksnavn>DNB Eiendom</foretaksnavn>
     <anvarligMegler>
@@ -19,16 +15,11 @@
     </oppgjorsavdeling>
   </megler>
   <salgsobjekt>
-    <!--Optional:-->
     <salgsoppgave>https://www.eiendomsmegler1.no/bolig/kjoepe-bolig/boliger/bolig/?propertyid=126319694&amp;amp;title=NYTT%20byggetrinn%20p%C3%A5%20toppen%20av%20Reppe.%20Flere%20hj%C3%B8rne-%20og%20utsiktsleiligheter.%20Sol%20og%20utsikt%20mot%20by,%20fjord%20og%20mark.&amp;amp;org=EiendomsMegler%201%20Prosjekt%20Trondheim</salgsoppgave>
-    <!--Optional:-->
     <nettannonse>https://www.finn.no/realestate/newbuildings/ad.html?finnkode=137493979</nettannonse>
     <registerenheter>
-      <!--1 or more repetitions:-->
       <registerenhet>
-        <!--You have a CHOICE of the next 3 items at this level-->
         <matrikkel kommunenavn="Bergen" kommunenummer="1201" gaardsnummer="21" bruksnummer="1614" festenummer="1" seksjonsnummer="2" eiendomsnivaa="F"/>
-        <!--Optional:-->
         <adresse>
           <gatenavn>Krinkelkroken 1</gatenavn>
           <postnummer>5014</postnummer>
@@ -36,16 +27,10 @@
         </adresse>
       </registerenhet>
       <registerenhet>
-        <!--You have a CHOICE of the next 3 items at this level-->
         <matrikkel kommunenavn="Bergen" kommunenummer="1201" gaardsnummer="21" bruksnummer="275" festenummer="0" seksjonsnummer="0" eiendomsnivaa="E"/>
       </registerenhet>
       <registerenhet>
         <borettsandel organisasjonsnummer="987654321" borettslagnavn="Holmåsen borettslag" andelsnummer="4"/>
-        <!--<adresse>-->
-        <!--<gatenavn>Holmåsen 14C</gatenavn>-->
-        <!--<postnummer>5014</postnummer>-->
-        <!--<poststed>Bergen</poststed>-->
-        <!--</adresse>-->
       </registerenhet>
       <registerenhet>
         <aksjeleilighet organisasjonsnummer="987644311" organisasjonsnavn="Z-Eiendom Bolig AS" leilighetsnummer="92"/>
@@ -59,9 +44,7 @@
   </salgsobjekt>
 
   <parter>
-    <!--1 or more repetitions:-->
     <rettssubjekt rolle="selger">
-      <!--You have a CHOICE of the next 2 items at this level-->
       <person id="23456789909">
         <fornavn>Kari</fornavn>
         <etternavn>Normann</etternavn>
@@ -69,7 +52,6 @@
       <andel teller="1" nevner="1"/>
     </rettssubjekt>
     <rettssubjekt rolle="kjoeper">
-      <!--You have a CHOICE of the next 2 items at this level-->
       <person id="3212345678">
         <fornavn>Ola</fornavn>
         <etternavn>Normann</etternavn>
@@ -77,7 +59,6 @@
       <andel teller="1" nevner="2"/>
     </rettssubjekt>
     <rettssubjekt rolle="kjoeper">
-      <!--You have a CHOICE of the next 2 items at this level-->
       <organisasjon id="987654321">
         <foretaksnavn>Ola Eiendom AS</foretaksnavn>
       </organisasjon>

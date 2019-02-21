@@ -1,6 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="kjoepekontrakt" type="Kjoepekontrakt"/>
+  <xs:element name="kjoepekontrakt-request" type="Kjoepekontrakt-request"/>
+
+  <xs:complexType name="Kjoepekontrakt-request">
+    <xs:annotation>
+      <xs:documentation>
+        Kjøpekontrakt-request er en forespørsel til megler om å få utlevert kjøpekontakten.
+        Benyttes for å digitalisere prosessene mellom banker og meglere og kan sendes fra bank til megler.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="avsender" type="Avsender"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="parter" type="Kjoepere"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="registerenheter" type="Registerenheter"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="metadata" type="Metadata"/>
+    </xs:sequence>
+  </xs:complexType>
 
   <xs:complexType name="Kjoepekontrakt">
     <xs:annotation>
@@ -10,7 +26,7 @@
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element minOccurs="1" maxOccurs="1" name="megler" type="Avsender"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="megler" type="Megler"/>
       <xs:element minOccurs="1" maxOccurs="1" name="parter" type="Rettssubjekter"/>
       <xs:element minOccurs="1" maxOccurs="1" name="salgsobjekt" type="Salgsobjekt"/>
       <xs:element minOccurs="1" maxOccurs="1" name="oppgjorsinformasjon" type="Oppgjorsinformasjon"/>
@@ -19,6 +35,27 @@
   </xs:complexType>
 
   <xs:complexType name="Avsender">
+    <xs:annotation>
+      <xs:documentation>
+        Avsender angir hvem som har sendt meldingen.
+        Avsender skal motta kjøpekontrakten dersom ikke returnerTil er angitt.
+        Dersom returnerTil er angitt, skal kjøpekontrakten sendes dit.
+        Kontaktperson angir hvem som er relevant for denne saken dersom det er behov for direkte kontakt.
+        Referanse er avsenders referanse
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="Organisasjon">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="kontaktperson" type="Kontaktperson"/>
+          <xs:element minOccurs="1" name="referanse" type="xs:string"/>
+          <xs:element minOccurs="0" name="returnerTil" type="Organisasjon"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Megler">
     <xs:annotation>
       <xs:documentation>
         Avsender angir hvem som har sendt meldingen.
@@ -47,6 +84,17 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="1" maxOccurs="unbounded" name="rettssubjekt" nillable="true" type="Aktoer"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Kjoepere">
+    <xs:annotation>
+      <xs:documentation>
+        Rettssubjekt er Kartverkets sin terminologi for å angi person eller organisasjon (juridisk person).
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="kjoeper" nillable="true" type="Kjoeper"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -108,6 +156,20 @@
       <xs:element minOccurs="1" maxOccurs="1" name="andel" type="Broek"/>
     </xs:sequence>
     <xs:attribute name="rolle" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="Kjoeper">
+    <xs:annotation>
+      <xs:documentation>
+        En person/organisasjon som er kjøper av objekt
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="organisasjon" type="Organisasjon"/>
+        <xs:element name="person" type="Person"/>
+      </xs:choice>
+    </xs:sequence>
   </xs:complexType>
 
   <xs:complexType abstract="true" name="Rettssubjekt">
