@@ -12,11 +12,11 @@ Det forventes at positivt svar er en kjøpekontrakt som definert under.
 |messageType|String|Yes|FutureRemainingDebtRequest|
 
 ### Payload
-En ZIP-fil som inneholder en XML med requestdata ihht. [definert skjema.](xsd/dsbm-1.0.0.xsd)
+En ZIP-fil som inneholder en XML med requestdata ihht. [definert skjema.](../afpant-kjøpekontrakt/xsd/dsbm-1.0.0.xsd)
 
 #### Om payload *(request)*
 - En xml-fil som er i henhold til xsd-filen.
-- Se eksempel på presentasjon [Eksempel](../afpant-kjoepekontakt/examples/restgjeldsforespoersel-example-xml.png)
+- Se eksempel på presentasjon [Eksempel](../afpant-kjøpekontrakt/examples/restgjeldsforespoersel-example-xml.png)
 
 ## Restgjeldssvar
 Svar fra bank til megler.
@@ -35,8 +35,8 @@ Tilknytting av ZIP-fil til forsendelsen kan gjøres ved bruk av BrokerServiceExt
 #### Om payload *(response)*
 
 ##### Positiv resultat
-- Må være en xml-fil som er ihht. [definert skjema](xsd/dsbm-1.0.0.xsd).
-- Se eksempel på presentasjon [Eksempel](../afpant-kjoepekontakt/examples/restgjeldssvar-example-xml.png)
+- Må være en xml-fil som er ihht. [definert skjema](../afpant-kjøpekontrakt/xsd/dsbm-1.0.0.xsd).
+- Se eksempel på presentasjon [Eksempel](../afpant-kjøpekontrakt/examples/restgjeldssvar-example-xml.png)
 
 ##### Negativt resultat
 - @todo:Må definere hvor ack/navk-informasjon skal legges
