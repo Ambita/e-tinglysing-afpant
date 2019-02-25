@@ -2,7 +2,7 @@
 
 ## Forspørsel om restgjeld
 Forespørsel sendes fra bank til megler for å hente kjøpekontrakten for en kunde.
-Det forventes at positivt svar er en kjøpekontrakt som definert under.
+Det forventes at positivt svar levers som definert under.
 
 ### Manifest
 (BrokerServiceInitiation.Manifest.PropertyList)
