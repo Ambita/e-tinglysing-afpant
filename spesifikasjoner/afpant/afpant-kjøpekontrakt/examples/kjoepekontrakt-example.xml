@@ -44,26 +44,30 @@
   </salgsobjekt>
 
   <parter>
-    <rettssubjekt rolle="selger">
-      <person id="23456789909">
-        <fornavn>Kari</fornavn>
-        <etternavn>Normann</etternavn>
-      </person>
-      <andel teller="1" nevner="1"/>
-    </rettssubjekt>
-    <rettssubjekt rolle="kjoeper">
-      <person id="3212345678">
-        <fornavn>Ola</fornavn>
-        <etternavn>Normann</etternavn>
-      </person>
-      <andel teller="1" nevner="2"/>
-    </rettssubjekt>
-    <rettssubjekt rolle="kjoeper">
-      <organisasjon id="987654321">
-        <foretaksnavn>Ola Eiendom AS</foretaksnavn>
-      </organisasjon>
-      <andel teller="1" nevner="2"/>
-    </rettssubjekt>
+    <selgere>
+      <rettssubjekt>
+        <person id="23456789909">
+          <fornavn>Kari</fornavn>
+          <etternavn>Normann</etternavn>
+        </person>
+        <andel teller="1" nevner="1"/>
+      </rettssubjekt>
+    </selgere>
+    <kjoepere>
+      <rettssubjekt>
+        <person id="3212345678">
+          <fornavn>Ola</fornavn>
+          <etternavn>Normann</etternavn>
+        </person>
+        <andel teller="1" nevner="2"/>
+      </rettssubjekt>
+      <rettssubjekt>
+        <organisasjon id="987654321">
+          <foretaksnavn>Ola Eiendom AS</foretaksnavn>
+        </organisasjon>
+        <andel teller="1" nevner="2"/>
+      </rettssubjekt>
+    </kjoepere>
   </parter>
 
   <oppgjorsinformasjon>

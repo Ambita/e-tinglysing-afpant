@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="http://localhost:8000/xslt/dsbm-1.0.0.xslt"?>
+<saldoforespoersel-response>
+  <registerenheter>
+    <registerenhet>
+      <matrikkel kommunenavn="Bergen" kommunenummer="1201" gaardsnummer="21" bruksnummer="1614" festenummer="1" seksjonsnummer="2" eiendomsnivaa="F"/>
+      <adresse>
+        <gatenavn>Krinkelkroken 1</gatenavn>
+        <postnummer>5014</postnummer>
+        <poststed>Bergen</poststed>
+      </adresse>
+    </registerenhet>
+  </registerenheter>
+  <saldosvar>
+    <laan>
+      <laan laanenummer="3703.30.12345" saldo="300000" type="Annuitetslån" laastramme="600000"/>
+      <laan laanenummer="3103.30.12345" saldo="4500000" type="Annuitetslån" laastramme="5000000"/>
+    </laan>
+    <sperret>true</sperret>
+  </saldosvar>
+  <parter>
+    <selgere>
+      <rettssubjekt>
+        <person id="23456789909">
+          <fornavn>Kari</fornavn>
+          <etternavn>Normann</etternavn>
+        </person>
+      </rettssubjekt>
+    </selgere>
+    <hjemmelshavere>
+      <rettssubjekt>
+        <person id="23456789909">
+          <fornavn>Per</fornavn>
+          <etternavn>Normann</etternavn>
+        </person>
+      </rettssubjekt>
+      <rettssubjekt>
+        <person id="98765432122">
+          <fornavn>Ole</fornavn>
+          <etternavn>Normann</etternavn>
+        </person>
+      </rettssubjekt>
+    </hjemmelshavere>
+  </parter>
+  <avsender id="945811714">
+    <foretaksnavn>DNB</foretaksnavn>
+    <kontaktperson>
+      <navn>Ole Olsen</navn>
+      <epost>ole@bank.no</epost>
+      <telefonDirekte>99223452</telefonDirekte>
+      <telefon>55300455</telefon>
+    </kontaktperson>
+    <referanse>REF-123</referanse>
+  </avsender>
+  <metadata>
+    <opprettet>2016-01-31T20:07:42</opprettet>
+  </metadata>
+</saldoforespoersel-response>

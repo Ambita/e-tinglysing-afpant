@@ -12,26 +12,32 @@
     <referanse>REF-123</referanse>
   </avsender>
 
-  <salgsobjekt>
-    <registerenheter>
-      <registerenhet>
-        <matrikkel kommunenavn="Bergen" kommunenummer="1201" gaardsnummer="21" bruksnummer="1614" festenummer="1" seksjonsnummer="2" eiendomsnivaa="F"/>
-        <adresse>
-          <gatenavn>Krinkelkroken 1</gatenavn>
-          <postnummer>5014</postnummer>
-          <poststed>Bergen</poststed>
-        </adresse>
-      </registerenhet>
-    </registerenheter>
-  </salgsobjekt>
+  <registerenheter>
+    <registerenhet>
+      <matrikkel kommunenavn="Bergen" kommunenummer="1201" gaardsnummer="21" bruksnummer="1614" festenummer="1" seksjonsnummer="2" eiendomsnivaa="F"/>
+      <adresse>
+        <gatenavn>Krinkelkroken 1</gatenavn>
+        <postnummer>5014</postnummer>
+        <poststed>Bergen</poststed>
+      </adresse>
+    </registerenhet>
+  </registerenheter>
 
   <parter>
-    <rettssubjekt rolle="kjoeper">
-      <person id="23456789909">
-        <fornavn>Kari</fornavn>
-        <etternavn>Normann</etternavn>
-      </person>
-    </rettssubjekt>
+    <kjoepere>
+      <rettssubjekt>
+        <person id="23456789909">
+          <fornavn>Kari</fornavn>
+          <etternavn>Normann</etternavn>
+        </person>
+      </rettssubjekt>
+      <rettssubjekt>
+        <person id="54634563456">
+          <fornavn>Truls</fornavn>
+          <etternavn>Normann</etternavn>
+        </person>
+      </rettssubjekt>
+    </kjoepere>
   </parter>
 
   <metadata>

@@ -2,6 +2,9 @@
 <xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="kjoepekontrakt" type="Kjoepekontrakt"/>
   <xs:element name="kjoepekontrakt-request" type="Kjoepekontrakt-request"/>
+  <xs:element name="saldoforespoersel-request" type="Saldoforespoersel-request"/>
+  <xs:element name="saldoforespoersel-response" type="Saldoforespoersel-response"/>
+
 
   <xs:complexType name="Kjoepekontrakt-request">
     <xs:annotation>
@@ -12,7 +15,7 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="1" maxOccurs="1" name="avsender" type="Avsender"/>
-      <xs:element minOccurs="1" maxOccurs="1" name="parter" type="Kjoepere"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="parter" type="Parter"/>
       <xs:element minOccurs="1" maxOccurs="1" name="registerenheter" type="Registerenheter"/>
       <xs:element minOccurs="1" maxOccurs="1" name="metadata" type="Metadata"/>
     </xs:sequence>
@@ -30,6 +33,50 @@
       <xs:element minOccurs="1" maxOccurs="1" name="parter" type="Rettssubjekter"/>
       <xs:element minOccurs="1" maxOccurs="1" name="salgsobjekt" type="Salgsobjekt"/>
       <xs:element minOccurs="1" maxOccurs="1" name="oppgjorsinformasjon" type="Oppgjorsinformasjon"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="metadata" type="Metadata"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Saldoforespoersel-request">
+    <xs:annotation>
+      <xs:documentation>
+        Forespoersel om saldo på et objekt
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="megler" type="Megler"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="parter" type="Parter"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="registerenheter" type="Registerenheter"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="saldoforespoersel" type="Saldoforespoersel"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="metadata" type="Metadata"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Saldoforespoersel-response">
+    <xs:annotation>
+      <xs:documentation>
+        Svar på forespørsel om saldo
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="avsender" type="Avsender"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="parter" type="Parter"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="registerenheter" type="Registerenheter"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="saldoforespoersel" type="Saldoforespoersel"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="saldosvar" type="Saldosvar"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="metadata" type="Metadata"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Restgjeld-forespoersel">
+    <xs:annotation>
+      <xs:documentation>
+        Forespoersel om restgjeld på et objekt
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="megler" type="Megler"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="restforespoersel" type="Restgjeldforespoersel"/>
       <xs:element minOccurs="1" maxOccurs="1" name="metadata" type="Metadata"/>
     </xs:sequence>
   </xs:complexType>
@@ -83,18 +130,44 @@
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element minOccurs="1" maxOccurs="unbounded" name="rettssubjekt" nillable="true" type="Aktoer"/>
+      <xs:element minOccurs="0" maxOccurs="1" name="selgere" nillable="true" type="Andelshavere"/>
+      <xs:element minOccurs="0" maxOccurs="1" name="kjoepere" nillable="true" type="Andelshavere"/>
+      <xs:element minOccurs="0" maxOccurs="1" name="hjemmelshavere" nillable="true" type="Andelshavere"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="Kjoepere">
+  <xs:complexType name="Parter">
     <xs:annotation>
       <xs:documentation>
         Rettssubjekt er Kartverkets sin terminologi for å angi person eller organisasjon (juridisk person).
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element minOccurs="1" maxOccurs="unbounded" name="kjoeper" nillable="true" type="Kjoeper"/>
+      <xs:element minOccurs="0" maxOccurs="1" name="selgere" type="Part"/>
+      <xs:element minOccurs="0" maxOccurs="1" name="kjoepere" type="Part"/>
+      <xs:element minOccurs="0" maxOccurs="1" name="hjemmelshavere" type="Part"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Part">
+    <xs:annotation>
+      <xs:documentation>
+        Rettssubjekt er Kartverkets sin terminologi for å angi person eller organisasjon (juridisk person).
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="rettsubjekt" nillable="true" type="Aktoer"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Andelshavere">
+    <xs:annotation>
+      <xs:documentation>
+        Rettssubjekt er Kartverkets sin terminologi for å angi person eller organisasjon (juridisk person).
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="rettsubjekt" nillable="true" type="Andelshaver"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -124,26 +197,26 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="Metadata">
+
+  <xs:complexType name="Andelshaver">
     <xs:annotation>
       <xs:documentation>
-        Informasjon om meldingen
+        Andelshaver er enten en organisasjon eller person med en andel (brøk) og rolle.
       </xs:documentation>
     </xs:annotation>
-    <xs:sequence>
-      <xs:element minOccurs="0" name="ressurser" type="Vedleggsliste"/>
-      <xs:element minOccurs="1" maxOccurs="1" name="opprettet" type="xs:dateTime">
-        <xs:annotation>
-          <xs:documentation>En timestamp som indikerer når objektet ble produsert</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
+    <xs:complexContent>
+      <xs:extension base="Aktoer">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="andel" type="Broek"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
   </xs:complexType>
 
   <xs:complexType name="Aktoer">
     <xs:annotation>
       <xs:documentation>
-        Aktør er enten en organisasjon eller person med en andel (brøk) og rolle.
+        Aktør er enten en organisasjon eller person med rolle.
         Rolle angir hvilken rolle aktøren har. Definerte roller er selger, kjøper og hjemmelshaver (dersom selger ikke er hjemmelshaver)
         Spørsmål: Vil det være en andel for selger som ikke er hjemmelshaver, eller må andel være frivillig?
       </xs:documentation>
@@ -153,9 +226,7 @@
         <xs:element name="organisasjon" type="Organisasjon"/>
         <xs:element name="person" type="Person"/>
       </xs:choice>
-      <xs:element minOccurs="1" maxOccurs="1" name="andel" type="Broek"/>
     </xs:sequence>
-    <xs:attribute name="rolle" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="Kjoeper">
@@ -334,5 +405,99 @@
       </xs:element>
     </xs:sequence>
   </xs:complexType>
+
+  <xs:complexType name="Saldoforespoersel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="prisantyding" type="xs:double"/>
+      <xs:element minOccurs="0" name="salgssum" type="xs:double"/>
+      <xs:element name="tinglyst" type="TinglystePant"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Saldosvar">
+    <xs:sequence>
+      <xs:element name="laan" type="LaanListe"/>
+      <xs:element name="sperret" type="xs:boolean" minOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Restgjeldforespoersel">
+    <xs:sequence>
+      <xs:element name="laanperdato" type="RestgjeldDatoer"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RestgjeldDatoer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="laan" type="RestgjeldDato"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RestgjeldDato">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="laanenummer" type="xs:string"/>
+    </xs:sequence>
+    <xs:attribute name="dato" type="xs:date" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="LaanListe">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="laan" type="Laan"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!--<saldoer>-->
+    <!--<saldo dato="2018-11-19">-->
+      <!--<laan laanenummer="1" innfrielseskontonummer="" kid="" laanetype="" restbeloep="">-->
+      <!--<laan laanenummer="2" innfrielseskontonummer="" kid="" laanetype="" restbeloep="">-->
+    <!--</saldo>-->
+    <!--<saldo dato="2019-01-01">-->
+      <!--<laan laanenummer="1" innfrielseskontonummer="" kid="" laanetype="" restbeloep="">-->
+      <!--<laan laanenummer="2" innfrielseskontonummer="" kid="" laanetype="" restbeloep="">-->
+    <!--</saldo>-->
+  <!--</saldoer>-->
+
+  <xs:complexType name="Laan">
+    <xs:attribute name="laanenummer" type="xs:string" use="required"/>
+    <xs:attribute name="saldo" type="xs:double" use="required"/>
+    <xs:attribute name="type" type="xs:string" use="required"/>
+    <xs:attribute name="laastramme" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="TinglystePant">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="pant" type="Pantedokumentreferanse"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Pantedokumentreferanse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="panthaver" type="Aktoer"/>
+    </xs:sequence>
+    <xs:attribute name="dokumentnummer" type="xs:string" use="required"/>
+    <xs:attribute name="dokumentaar" type="xs:string" use="required"/>
+    <xs:attribute name="embetenummer" type="xs:string" use="required"/>
+    <xs:attribute name="rettsstiftelsesnummer" type="xs:integer" use="required"/>
+    <xs:attribute name="kommunenummer" type="xs:string" use="optional"/>
+    <xs:attribute name="tid" type="xs:dateTime" use="required"/>
+    <xs:attribute name="beloep" type="xs:double" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="Metadata">
+    <xs:annotation>
+      <xs:documentation>
+        Informasjon om meldingen
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ressurser" type="Vedleggsliste"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="opprettet" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>En timestamp som indikerer når objektet ble produsert</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
 
 </xs:schema>
