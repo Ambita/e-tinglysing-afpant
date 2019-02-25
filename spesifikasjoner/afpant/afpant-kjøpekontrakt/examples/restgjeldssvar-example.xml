@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xsl" href="http://localhost:8000/xslt/dsbm-1.0.0.xslt"?>
-<saldosvar>
+<restgjeldssvar>
   <mottaker id="945811714">
     <foretaksnavn>DNB Eiendom</foretaksnavn>
     <referanse>OPD-123</referanse>
@@ -17,13 +17,23 @@
     </registerenhet>
   </registerenheter>
 
-  <saldosvardetaljer>
-    <laan>
-      <laan laanenummer="3703.30.12345" saldo="300000" type="Annuitetslån" laastramme="600000"/>
-      <laan laanenummer="3103.30.12345" saldo="4500000" type="Annuitetslån" laastramme="5000000"/>
-    </laan>
+  <restgjelddetaljer>
+    <restgjeldsdatoer>
+      <saldoerperdato dato="2019-03-15">
+        <laan laanenummer="3703.30.12345" saldo="290000" type="Annuitetslån" laastramme="600000"/>
+        <laan laanenummer="3103.30.12345" saldo="4500000" type="Annuitetslån" laastramme="5000000"/>
+      </saldoerperdato>
+      <saldoerperdato dato="2019-03-16">
+        <laan laanenummer="3703.30.12345" saldo="280000" type="Annuitetslån" laastramme="600000"/>
+        <laan laanenummer="3103.30.12345" saldo="4400000" type="Annuitetslån" laastramme="5000000"/>
+      </saldoerperdato>
+      <saldoerperdato dato="2019-03-17">
+        <laan laanenummer="3703.30.12345" saldo="270000" type="Annuitetslån" laastramme="600000"/>
+        <laan laanenummer="3103.30.12345" saldo="4400000" type="Annuitetslån" laastramme="5000000"/>
+      </saldoerperdato>
+    </restgjeldsdatoer>
     <sperret>true</sperret>
-  </saldosvardetaljer>
+  </restgjelddetaljer>
 
   <parter>
     <selgere>
@@ -64,4 +74,4 @@
   <metadata>
     <opprettet>2016-01-31T20:07:42</opprettet>
   </metadata>
-</saldosvar>
+</restgjeldssvar>

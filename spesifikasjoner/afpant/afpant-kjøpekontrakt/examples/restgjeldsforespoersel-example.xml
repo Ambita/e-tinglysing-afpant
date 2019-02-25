@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xsl" href="http://localhost:8000/xslt/dsbm-1.0.0.xslt"?>
-<saldosvar>
-  <mottaker id="945811714">
+<restgjeldsforespoersel>
+  <megler id="945811714">
     <foretaksnavn>DNB Eiendom</foretaksnavn>
-    <referanse>OPD-123</referanse>
+    <anvarligMegler>
+      <navn>Ole Olsen</navn>
+      <epost>ole@megler.no</epost>
+      <telefonDirekte>99223452</telefonDirekte>
+      <telefon>55300455</telefon>
+    </anvarligMegler>
+    <referanse>OPGNR-123</referanse>
+    <oppgjorsavdeling id="912345678">
+      <foretaksnavn>Megleroppjør AS</foretaksnavn>
+    </oppgjorsavdeling>
+  </megler>
+
+  <mottaker id="945811714">
+    <foretaksnavn>DNB Bank ASA</foretaksnavn>
+    <referanse>LP-321</referanse>
   </mottaker>
 
   <registerenheter>
@@ -16,14 +30,6 @@
       </adresse>
     </registerenhet>
   </registerenheter>
-
-  <saldosvardetaljer>
-    <laan>
-      <laan laanenummer="3703.30.12345" saldo="300000" type="Annuitetslån" laastramme="600000"/>
-      <laan laanenummer="3103.30.12345" saldo="4500000" type="Annuitetslån" laastramme="5000000"/>
-    </laan>
-    <sperret>true</sperret>
-  </saldosvardetaljer>
 
   <parter>
     <selgere>
@@ -50,18 +56,25 @@
     </hjemmelshavere>
   </parter>
 
-  <avsender id="945811714">
-    <foretaksnavn>DNB</foretaksnavn>
-    <kontaktperson>
-      <navn>Ole Olsen</navn>
-      <epost>ole@bank.no</epost>
-      <telefonDirekte>99223452</telefonDirekte>
-      <telefon>55300455</telefon>
-    </kontaktperson>
-    <referanse>REF-123</referanse>
-  </avsender>
+  <restgjeldforespoerseldetaljer>
+    <saldoperdato>
+      <saldo dato="2019-03-15">
+        <laanenummer>3703.30.12345</laanenummer>
+        <laanenummer>3103.30.34567</laanenummer>
+      </saldo>
+      <saldo dato="2019-03-16">
+        <laanenummer>3703.30.12345</laanenummer>
+        <laanenummer>3103.30.34567</laanenummer>
+      </saldo>
+      <saldo dato="2019-03-17">
+        <laanenummer>3703.30.12345</laanenummer>
+        <laanenummer>3103.30.34567</laanenummer>
+      </saldo>
+    </saldoperdato>
+  </restgjeldforespoerseldetaljer>
+
 
   <metadata>
     <opprettet>2016-01-31T20:07:42</opprettet>
   </metadata>
-</saldosvar>
+</restgjeldsforespoersel>

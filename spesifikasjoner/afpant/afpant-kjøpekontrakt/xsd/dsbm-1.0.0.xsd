@@ -1,12 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="kjoepekontrakt" type="Kjoepekontrakt"/>
-  <xs:element name="kjoepekontrakt-request" type="Kjoepekontrakt-request"/>
-  <xs:element name="saldoforespoersel-request" type="Saldoforespoersel-request"/>
-  <xs:element name="saldoforespoersel-response" type="Saldoforespoersel-response"/>
+  <xs:element name="kjoepekontraktsforespoersel" type="Kjoepekontraktforespoersel"/>
+  <xs:element name="saldoforespoersel" type="Saldoforespoersel"/>
+  <xs:element name="saldosvar" type="Saldosvar"/>
+  <xs:element name="restgjeldsforespoersel" type="Restgjeldsforespoersel"/>
+  <xs:element name="restgjeldssvar" type="Restgjeldssvar"/>
 
 
-  <xs:complexType name="Kjoepekontrakt-request">
+  <xs:complexType name="Kjoepekontraktforespoersel">
     <xs:annotation>
       <xs:documentation>
         Kjøpekontrakt-request er en forespørsel til megler om å få utlevert kjøpekontakten.
@@ -37,7 +39,7 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="Saldoforespoersel-request">
+  <xs:complexType name="Saldoforespoersel">
     <xs:annotation>
       <xs:documentation>
         Forespoersel om saldo på et objekt
@@ -45,14 +47,15 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="1" maxOccurs="1" name="megler" type="Megler"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="mottaker" type="Mottaker"/>
       <xs:element minOccurs="1" maxOccurs="1" name="parter" type="Parter"/>
       <xs:element minOccurs="1" maxOccurs="1" name="registerenheter" type="Registerenheter"/>
-      <xs:element minOccurs="1" maxOccurs="1" name="saldoforespoersel" type="Saldoforespoersel"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="saldoforespoerseldetaljer" type="Saldoforespoerseldetaljer"/>
       <xs:element minOccurs="1" maxOccurs="1" name="metadata" type="Metadata"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="Saldoforespoersel-response">
+  <xs:complexType name="Saldosvar">
     <xs:annotation>
       <xs:documentation>
         Svar på forespørsel om saldo
@@ -60,15 +63,16 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="1" maxOccurs="1" name="avsender" type="Avsender"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="mottaker" type="Mottaker"/>
       <xs:element minOccurs="1" maxOccurs="1" name="parter" type="Parter"/>
       <xs:element minOccurs="1" maxOccurs="1" name="registerenheter" type="Registerenheter"/>
-      <xs:element minOccurs="1" maxOccurs="1" name="saldoforespoersel" type="Saldoforespoersel"/>
-      <xs:element minOccurs="1" maxOccurs="1" name="saldosvar" type="Saldosvar"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="saldoforespoersel" type="Saldoforespoerseldetaljer"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="saldosvar" type="Saldosvardetaljer"/>
       <xs:element minOccurs="1" maxOccurs="1" name="metadata" type="Metadata"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="Restgjeld-forespoersel">
+  <xs:complexType name="Restgjeldsforespoersel">
     <xs:annotation>
       <xs:documentation>
         Forespoersel om restgjeld på et objekt
@@ -76,7 +80,22 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="1" maxOccurs="1" name="megler" type="Megler"/>
-      <xs:element minOccurs="1" maxOccurs="1" name="restforespoersel" type="Restgjeldforespoersel"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="mottaker" type="Mottaker"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="restgjeldforespoerseldetaljer" type="Restgjeldforespoerseldetaljer"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="metadata" type="Metadata"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Restgjeldssvar">
+    <xs:annotation>
+      <xs:documentation>
+        Svar på restgjeldsforespørsel
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="avsender" type="Avsender"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="mottaker" type="Mottaker"/>
+      <xs:element minOccurs="1" maxOccurs="1" name="restgjelddetaljer" type="Restgjelddetaljer"/>
       <xs:element minOccurs="1" maxOccurs="1" name="metadata" type="Metadata"/>
     </xs:sequence>
   </xs:complexType>
@@ -97,6 +116,22 @@
           <xs:element minOccurs="0" name="kontaktperson" type="Kontaktperson"/>
           <xs:element minOccurs="1" name="referanse" type="xs:string"/>
           <xs:element minOccurs="0" name="returnerTil" type="Organisasjon"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Mottaker">
+    <xs:annotation>
+      <xs:documentation>
+        Mottaker angir hvem som skal ha meldingen.
+        Referanse er avsenders referanse.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="Organisasjon">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="referanse" type="xs:string"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -406,7 +441,7 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="Saldoforespoersel">
+  <xs:complexType name="Saldoforespoerseldetaljer">
     <xs:sequence>
       <xs:element minOccurs="0" name="prisantyding" type="xs:double"/>
       <xs:element minOccurs="0" name="salgssum" type="xs:double"/>
@@ -414,31 +449,55 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="Saldosvar">
+  <xs:complexType name="Saldosvardetaljer">
     <xs:sequence>
-      <xs:element name="laan" type="LaanListe"/>
+      <xs:element name="saldoer" type="LaanListe"/>
       <xs:element name="sperret" type="xs:boolean" minOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="Restgjeldforespoersel">
+  <xs:complexType name="Restgjelddetaljer">
     <xs:sequence>
-      <xs:element name="laanperdato" type="RestgjeldDatoer"/>
+      <xs:sequence>
+        <xs:element name="restgjeldsdatoer" type="Restgjeldsdatoer"/>
+      </xs:sequence>
+      <xs:element name="sperret" type="xs:boolean" minOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="RestgjeldDatoer">
+  <xs:complexType name="Restgjeldsdatoer">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="laan" type="RestgjeldDato"/>
+      <xs:element name="saldoerperdato" type="Restgjeldperdato"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="RestgjeldDato">
+  <xs:complexType name="Restgjeldperdato">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="laan" type="Laan"/>
+    </xs:sequence>
+    <xs:attribute name="dato" type="xs:date" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="Restgjeldforespoerseldetaljer">
+    <xs:sequence>
+      <xs:element name="saldoperdato" type="RestgjeldForespurteDatoer"/>
+      <xs:element name="sperret" type="xs:boolean" minOccurs="1"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RestgjeldForespurteDatoer">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="saldo" type="RestgjeldForespurtDato"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RestgjeldForespurtDato">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="laanenummer" type="xs:string"/>
     </xs:sequence>
     <xs:attribute name="dato" type="xs:date" use="required"/>
   </xs:complexType>
+
 
   <xs:complexType name="LaanListe">
     <xs:sequence>
@@ -446,22 +505,11 @@
     </xs:sequence>
   </xs:complexType>
 
-  <!--<saldoer>-->
-    <!--<saldo dato="2018-11-19">-->
-      <!--<laan laanenummer="1" innfrielseskontonummer="" kid="" laanetype="" restbeloep="">-->
-      <!--<laan laanenummer="2" innfrielseskontonummer="" kid="" laanetype="" restbeloep="">-->
-    <!--</saldo>-->
-    <!--<saldo dato="2019-01-01">-->
-      <!--<laan laanenummer="1" innfrielseskontonummer="" kid="" laanetype="" restbeloep="">-->
-      <!--<laan laanenummer="2" innfrielseskontonummer="" kid="" laanetype="" restbeloep="">-->
-    <!--</saldo>-->
-  <!--</saldoer>-->
-
   <xs:complexType name="Laan">
     <xs:attribute name="laanenummer" type="xs:string" use="required"/>
     <xs:attribute name="saldo" type="xs:double" use="required"/>
     <xs:attribute name="type" type="xs:string" use="required"/>
-    <xs:attribute name="laastramme" type="xs:string" use="required"/>
+    <xs:attribute name="laastramme" type="xs:double" use="required"/>
   </xs:complexType>
 
   <xs:complexType name="TinglystePant">

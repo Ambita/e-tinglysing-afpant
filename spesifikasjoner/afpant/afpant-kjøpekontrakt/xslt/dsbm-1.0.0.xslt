@@ -10,9 +10,12 @@
           <xsl:call-template name="overskrift"/>
         </title>
         <style type="text/css">
-          .rolleoverskrift,.seksjonsoverskrift{font-weight:500;color:#255473}#footer,.overskrift,.rolleoverskrift{color:#255473}.seksjonsoverskrift{padding-bottom:8px}.rolleoverskrift{padding-top:8px}.listeelement{font-weight:400;padding-bottom:4px}.innhold{padding-left:8px}body{margin:0;padding:0;height:100%}.hovedseksjon{padding:5px;margin-bottom:4px}#container{min-height:100%;position:relative;margin:10px;font-family:helvetica;max-width:210mm}#header{padding-left:5px;padding-top:1px;padding-bottom:1px}#body{padding-top:10px;padding-bottom:50px;widht:100%}#footer{position:absolute;bottom:0;width:100%;height:50px;background:#BDCBBD!important;text-align:center}.tabell{display:table;padding-bottom:4px;width:100%
-          table-layout:
-          fixed}.rad{display:table-row}.celle,.divTableHead{border:0;display:table-cell;padding:1px}.kropp{display:table-row-group}.kol1{min-width:80px;width:350px}.kol2{width:120px}.headerrad{color:grey;font-size:11px}
+          .rolleoverskrift,.seksjonsoverskrift{font-weight:500;color:#255473}#footer,.overskrift,.rolleoverskrift{color:#255473}.seksjonsoverskrift{padding-bottom:8px}.rolleoverskrift{padding-top:8px}
+          . listeelement{font-weight:400;padding-bottom:4px}.innhold{padding-left:8px}body{margin:0;padding:0;height:100%}.hovedseksjon{padding:5px;margin-bottom:4px}
+          #container{min-height:100%;position:relative;margin:10px;font-family:helvetica;max-width:210mm}#header{padding-left:5px;padding-top:1px;padding-bottom:1px}
+          #body{padding-top:10px;padding-bottom:50px;widht:100%}#footer{position:absolute;bottom:0;width:100%;height:50px;background:#BDCBBD!important;text-align:center}
+          .tabell{display:table;padding-bottom:4px;width:100%table-layout:fixed}.rad{display:table-row}.celle,.divTableHead{border:0;display:table-cell;padding:1px}
+          .kropp{display:table-row-group}.kol1{min-width:80px;width:350px}.kol2{width:120px}.headerrad{color:grey;font-size:11px}
         </style>
       </head>
       <body>
@@ -21,15 +24,16 @@
             <h1 class="overskrift">
               <xsl:call-template name="overskrift"/>
             </h1>
-              <hr/>
+            <hr/>
             <xsl:call-template name="footer"/>
           </div>
           <div id="body">
             <xsl:apply-templates select="kjoepekontrakt"/>
-            <xsl:apply-templates select="kjoepekontrakt-request"/>
-            <xsl:apply-templates select="saldoforespoersel-request"/>
-            <xsl:apply-templates select="saldoforespoersel-response"/>
-            <xsl:apply-templates select="restgjeld-request"/>
+            <xsl:apply-templates select="kjoepekontraktsforespoersel"/>
+            <xsl:apply-templates select="saldoforespoersel"/>
+            <xsl:apply-templates select="saldosvar"/>
+            <xsl:apply-templates select="restgjeldsforespoersel"/>
+            <xsl:apply-templates select="restgjeldssvar"/>
           </div>
         </div>
       </body>
@@ -38,16 +42,22 @@
 
   <xsl:template name="overskrift">
     <xsl:if test="kjoepekontrakt">
-      Kjøpekontrakt
+      <xsl:text>Kjøpekontrakt</xsl:text>
     </xsl:if>
-    <xsl:if test="kjoepekontrakt-request">
-      Forespørsel om kjøpekontrakt
+    <xsl:if test="kjoepekontraktsforespoersel">
+      <xsl:text>Forespørsel om kjøpekontrakt</xsl:text>
     </xsl:if>
-    <xsl:if test="saldoforespoersel-request">
-      Forespørsel om saldo
+    <xsl:if test="saldoforespoersel">
+      <xsl:text>Forespørsel om saldo</xsl:text>
     </xsl:if>
-    <xsl:if test="saldoforespoersel-response">
-      Saldosvar
+    <xsl:if test="saldosvar">
+      <xsl:text>Saldosvar</xsl:text>
+    </xsl:if>
+    <xsl:if test="restgjeldsforespoersel">
+      <xsl:text>Forespørsel om restgjeld</xsl:text>
+    </xsl:if>
+    <xsl:if test="restgjeldssvar">
+      <xsl:text>Restgjeldssvar</xsl:text>
     </xsl:if>
   </xsl:template>
 
@@ -63,7 +73,7 @@
     <hr/>
   </xsl:template>
 
-  <xsl:template match="/kjoepekontrakt-request">
+  <xsl:template match="/kjoepekontraktsforespoersel">
     <xsl:call-template name="parter"/>
     <xsl:call-template name="eiendom">
       <xsl:with-param name="registerenhetsliste" select="registerenheter/registerenhet"/>
@@ -72,9 +82,10 @@
     <hr/>
   </xsl:template>
 
-  <xsl:template match="/saldoforespoersel-request">
-    <xsl:call-template name="parter">
-    </xsl:call-template>
+  <xsl:template match="/saldoforespoersel">
+
+    <xsl:call-template name="mottaker"/>
+    <xsl:call-template name="parter"/>
     <xsl:call-template name="eiendom">
       <xsl:with-param name="registerenhetsliste" select="registerenheter/registerenhet"/>
     </xsl:call-template>
@@ -83,56 +94,41 @@
     <hr/>
   </xsl:template>
 
-  <xsl:template match="/saldoforespoersel-response">
+  <xsl:template match="/saldosvar">
+    <xsl:call-template name="mottaker"/>
     <xsl:call-template name="parter">
     </xsl:call-template>
     <xsl:call-template name="eiendom">
       <xsl:with-param name="registerenhetsliste" select="registerenheter/registerenhet"/>
     </xsl:call-template>
-    <xsl:call-template name="saldosvar"/>
+    <xsl:call-template name="saldosvardetaljer"/>
     <xsl:call-template name="avsender"/>
     <hr/>
   </xsl:template>
 
-
-  <xsl:template name="megler">
-    <div class="hovedseksjon">
-      <xsl:call-template name="seksjon">
-        <xsl:with-param name="tittel" select="'Melger'"/>
-      </xsl:call-template>
-      <div class="tabell innhold">
-        <div class="rad">
-          <div class="celle kol1">
-            <xsl:if test="megler/anvarligMegler">
-              <div style="padding-bottom:8px;">
-                <xsl:call-template name="organisasjon">
-                  <xsl:with-param name="organisasjon" select="megler"/>
-                </xsl:call-template>
-              </div>
-              <xsl:call-template name="kontaktperson">
-                <xsl:with-param name="kontakt" select="megler/anvarligMegler"/>
-                <xsl:with-param name="referanse" select="megler/referanse"/>
-              </xsl:call-template>
-            </xsl:if>
-          </div>
-          <div class="celle">
-            <xsl:if test="megler/oppgjorsavdeling">
-              <xsl:text>Oppgjør:&#x20;</xsl:text>
-              <div style="padding-bottom:8px;">
-                <xsl:call-template name="organisasjon">
-                  <xsl:with-param name="organisasjon" select="megler/oppgjorsavdeling"/>
-                </xsl:call-template>
-              </div>
-            </xsl:if>
-            <div>
-              <div>Referanse:</div>
-              <xsl:value-of select="megler/referanse"/>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <xsl:template match="/restgjeldsforespoersel">
+    <xsl:call-template name="mottaker"/>
+    <xsl:call-template name="parter"/>
+    <xsl:call-template name="eiendom">
+      <xsl:with-param name="registerenhetsliste" select="registerenheter/registerenhet"/>
+    </xsl:call-template>
+    <xsl:call-template name="restgjeldforespoersel"/>
+    <xsl:call-template name="megler"/>
+    <hr/>
   </xsl:template>
+
+  <xsl:template match="/restgjeldssvar">
+    <xsl:call-template name="mottaker"/>
+    <xsl:call-template name="parter">
+    </xsl:call-template>
+    <xsl:call-template name="eiendom">
+      <xsl:with-param name="registerenhetsliste" select="registerenheter/registerenhet"/>
+    </xsl:call-template>
+    <xsl:call-template name="restgjeldssvardetaljer"/>
+    <xsl:call-template name="avsender"/>
+    <hr/>
+  </xsl:template>
+
 
   <xsl:template name="saldoforespoersel">
     <div class="hovedseksjon">
@@ -141,7 +137,7 @@
       </xsl:call-template>
       <div class="tabell innhold">
         <div class="kropp">
-          <xsl:if test="saldoforespoersel/prisantyding">
+          <xsl:if test="saldoforespoerseldetaljer/prisantyding">
             <div class="rad">
               <div class="celle kol1">
                 <xsl:text>Prisantyding:&#x20;</xsl:text>
@@ -149,12 +145,12 @@
               <div class="celle kol2">
                 <xsl:call-template name="formatNumber">
                   <xsl:with-param name="prefix" select="'kr. '"/>
-                  <xsl:with-param name="numericValue" select="saldoforespoersel/prisantyding"/>
+                  <xsl:with-param name="numericValue" select="saldoforespoerseldetaljer/prisantyding"/>
                 </xsl:call-template>
               </div>
             </div>
           </xsl:if>
-          <xsl:if test="saldoforespoersel/salgssum">
+          <xsl:if test="saldoforespoerseldetaljer/salgssum">
             <div class="rad">
               <div class="celle">
                 <xsl:text>Salgssum:&#x20;</xsl:text>
@@ -162,7 +158,7 @@
               <div class="celle">
                 <xsl:call-template name="formatNumber">
                   <xsl:with-param name="prefix" select="'kr. '"/>
-                  <xsl:with-param name="numericValue" select="saldoforespoersel/salgssum"/>
+                  <xsl:with-param name="numericValue" select="saldoforespoerseldetaljer/salgssum"/>
                 </xsl:call-template>
               </div>
             </div>
@@ -171,10 +167,41 @@
       </div>
     </div>
     <xsl:call-template name="tinglyst"/>
-
   </xsl:template>
 
-  <xsl:template name="saldosvar">
+  <xsl:template name="restgjeldforespoersel">
+    <div class="hovedseksjon">
+      <xsl:call-template name="seksjon">
+        <xsl:with-param name="tittel" select="'Forspurte datoer for restgjeld'"/>
+      </xsl:call-template>
+      <div class="tabell innhold">
+        <div class="kropp">
+          <xsl:for-each select="restgjeldforespoerseldetaljer/saldoperdato/saldo">
+            <div class="rad">
+              <div class="celle kol1">
+                <xsl:text>Saldo&#x20;per&#x20;</xsl:text>
+                <xsl:call-template name="dato">
+                  <xsl:with-param name="dato" select="@dato"/>
+                </xsl:call-template>
+              </div>
+            </div>
+            <xsl:for-each select="laanenummer">
+              <div class="rad">
+                <div class="celle kol1">
+                  <span style="padding-left: 8px;">Lånenummer:</span>
+                </div>
+                <div class="celle kol2">
+                  <xsl:value-of select="."/>
+                </div>
+              </div>
+            </xsl:for-each>
+          </xsl:for-each>
+        </div>
+      </div>
+    </div>
+  </xsl:template>
+
+  <xsl:template name="saldosvardetaljer">
     <div class="hovedseksjon">
       <xsl:call-template name="seksjon">
         <xsl:with-param name="tittel" select="'Lån med pant i eiendommen'"/>
@@ -187,7 +214,7 @@
             <div class="celle">Type lån</div>
             <div class="celle">Låst ramme</div>
           </div>
-          <xsl:for-each select="saldosvar/laan/laan">
+          <xsl:for-each select="saldosvardetaljer/laan/laan">
             <xsl:call-template name="laan">
               <xsl:with-param name="dokument" select="."/>
             </xsl:call-template>
@@ -195,7 +222,6 @@
         </div>
       </div>
     </div>
-
     <div class="hovedseksjon">
       <xsl:call-template name="seksjon">
         <xsl:with-param name="tittel" select="'Erklæring'"/>
@@ -207,15 +233,68 @@
               Hvis oppgitt lån er rammekreditt, er lånet sperret for ytterligere opplåning:
             </div>
             <div class="celle">
-              <xsl:if test="saldosvar/sperret='true'">Ja</xsl:if>
-              <xsl:if test="saldosvar/sperret='false'">Nei</xsl:if>
+              <xsl:if test="saldosvardetaljer/sperret='true'">Ja</xsl:if>
+              <xsl:if test="saldosvardetaljer/sperret='false'">Nei</xsl:if>
             </div>
           </div>
         </div>
       </div>
       <div class="innhold">Vi bekrefter med dette at pantet (pantene)/lånene ikke vil opplånes uten samtykke fra meglers oppgjørsavdeling. Megler må sørge for tinglysing av sperre på eiendommen for å
-        sikre at banken ikke etablerer nye pant. Alle våre panteretter i eiendommen vil slettes ved innfrielse/mottak av vårt
-        <tilgodehavende></tilgodehavende>
+        sikre at banken ikke etablerer nye pant. Alle våre panteretter i eiendommen vil slettes ved innfrielse/mottak av vårt tilgodehavende.
+      </div>
+    </div>
+  </xsl:template>
+
+  <xsl:template name="restgjeldssvardetaljer">
+    <div class="hovedseksjon">
+      <xsl:call-template name="seksjon">
+        <xsl:with-param name="tittel" select="'Restgjeld'"/>
+      </xsl:call-template>
+      <div class="tabell innhold">
+        <div class="kropp">
+          <div class="rad headerrad">
+            <div class="celle">Lånenummer</div>
+            <div class="celle">Saldo</div>
+            <div class="celle">Type lån</div>
+            <div class="celle">Låst ramme</div>
+          </div>
+          <xsl:for-each select="restgjelddetaljer/restgjeldsdatoer/saldoerperdato">
+            <div class="rad">
+              <div class="celle kol1">
+                <xsl:text>Saldo&#x20;per&#x20;</xsl:text>
+                <xsl:call-template name="dato">
+                  <xsl:with-param name="dato" select="@dato"/>
+                </xsl:call-template>
+              </div>
+            </div>
+            <xsl:for-each select="laan">
+              <xsl:call-template name="laan">
+                <xsl:with-param name="dokument" select="."/>
+              </xsl:call-template>
+            </xsl:for-each>
+          </xsl:for-each>
+        </div>
+      </div>
+    </div>
+    <div class="hovedseksjon">
+      <xsl:call-template name="seksjon">
+        <xsl:with-param name="tittel" select="'Erklæring'"/>
+      </xsl:call-template>
+      <div class="tabell innhold">
+        <div class="kropp">
+          <div class="rad">
+            <div class="celle">
+              Hvis oppgitt lån er rammekreditt, er lånet sperret for ytterligere opplåning:
+            </div>
+            <div class="celle">
+              <xsl:if test="restgjelddetaljer/sperret='true'">Ja</xsl:if>
+              <xsl:if test="restgjelddetaljer/sperret='false'">Nei</xsl:if>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="innhold">Vi bekrefter med dette at pantet (pantene)/lånene ikke vil opplånes uten samtykke fra meglers oppgjørsavdeling. Megler må sørge for tinglysing av sperre på eiendommen for å
+        sikre at banken ikke etablerer nye pant. Alle våre panteretter i eiendommen vil slettes ved innfrielse/mottak av vårt tilgodehavende.
       </div>
     </div>
 
@@ -229,7 +308,7 @@
       </xsl:call-template>
       <div class="tabell innhold">
         <div class="kropp">
-          <xsl:for-each select="saldoforespoersel/tinglyst/pant">
+          <xsl:for-each select="saldoforespoerseldetaljer/tinglyst/pant">
             <xsl:call-template name="pant">
               <xsl:with-param name="dokument" select="."/>
             </xsl:call-template>
@@ -285,9 +364,7 @@
           <xsl:text>Kommune:&#x20;</xsl:text>
           <xsl:value-of select="$dokument/@kommunenummer"/>
         </xsl:if>
-
       </div>
-
       <div class="celle">
         <span>
           <xsl:text>Pantedokument</xsl:text>
@@ -304,44 +381,24 @@
         </xsl:call-template>
         <br/>
         <br/>
-
       </div>
     </div>
   </xsl:template>
 
-  <xsl:template name="avsender">
+  <xsl:template name="mottaker">
     <div class="hovedseksjon">
       <xsl:call-template name="seksjon">
-        <xsl:with-param name="tittel" select="'Avsender'"/>
+        <xsl:with-param name="tittel" select="'Mottaker'"/>
       </xsl:call-template>
       <div class="tabell innhold">
         <div class="rad">
           <div class="celle kol1">
-            <xsl:if test="avsender/kontaktperson">
-              <div style="padding-bottom:8px;">
-                <xsl:call-template name="organisasjon">
-                  <xsl:with-param name="organisasjon" select="avsender"/>
-                </xsl:call-template>
-              </div>
-              <xsl:call-template name="kontaktperson">
-                <xsl:with-param name="kontakt" select="avsender/kontaktperson"/>
-                <xsl:with-param name="referanse" select="avsender/referanse"/>
-              </xsl:call-template>
-            </xsl:if>
+            <xsl:call-template name="organisasjon">
+              <xsl:with-param name="organisasjon" select="mottaker"/>
+            </xsl:call-template>
           </div>
           <div class="celle">
-            <xsl:if test="avsender/returnerTil">
-              <xsl:text>Returneres til:&#x20;</xsl:text>
-              <div style="padding-bottom:8px;">
-                <xsl:call-template name="organisasjon">
-                  <xsl:with-param name="organisasjon" select="avsender/returnerTil"/>
-                </xsl:call-template>
-              </div>
-            </xsl:if>
-            <div>
-              <div>Referanse:</div>
-              <xsl:value-of select="avsender/referanse"/>
-            </div>
+            <xsl:if test="mottaker/referanse">Referanse:&#x20;<xsl:value-of select="mottaker/referanse"/></xsl:if>
           </div>
         </div>
       </div>
@@ -915,8 +972,7 @@
   <xsl:template name="footer">
     <div style="padding-bottom:16px;">
       <small style="float:right;">
-        <xsl:call-template name="type"/>
-        ,&#x20;opprettet
+        <xsl:call-template name="type"/>,&#x20;opprettet
         <xsl:call-template name="tiddato">
           <xsl:with-param name="dato" select="*/metadata/opprettet"/>
         </xsl:call-template>
@@ -924,20 +980,102 @@
     </div>
   </xsl:template>
 
-  <xsl:template name="type">
-    <xsl:if test="kjoepekontrakt">
-      DSBM Kjøpekontrakt
-    </xsl:if>
-    <xsl:if test="kjoepekontrakt-request">
-      DSBM Forespørsel om kjøpekontrakt
-    </xsl:if>
-    <xsl:if test="saldoforespoersel-request">
-      DSBM Forespørsel om saldo
-    </xsl:if>
-    <xsl:if test="saldoforespoersel-response">
-      DSBM Saldosvar
-    </xsl:if>
+  <xsl:template name="avsender">
+    <div class="hovedseksjon">
+      <xsl:call-template name="seksjon">
+        <xsl:with-param name="tittel" select="'Avsender'"/>
+      </xsl:call-template>
+      <div class="tabell innhold">
+        <div class="rad">
+          <div class="celle kol1">
+            <xsl:if test="avsender/kontaktperson">
+              <div style="padding-bottom:8px;">
+                <xsl:call-template name="organisasjon">
+                  <xsl:with-param name="organisasjon" select="avsender"/>
+                </xsl:call-template>
+              </div>
+              <xsl:call-template name="kontaktperson">
+                <xsl:with-param name="kontakt" select="avsender/kontaktperson"/>
+                <xsl:with-param name="referanse" select="avsender/referanse"/>
+              </xsl:call-template>
+            </xsl:if>
+          </div>
+          <div class="celle">
+            <xsl:if test="avsender/returnerTil">
+              <xsl:text>Returneres til:&#x20;</xsl:text>
+              <div style="padding-bottom:8px;">
+                <xsl:call-template name="organisasjon">
+                  <xsl:with-param name="organisasjon" select="avsender/returnerTil"/>
+                </xsl:call-template>
+              </div>
+            </xsl:if>
+            <div>
+              <div>Referanse:</div>
+              <xsl:value-of select="avsender/referanse"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </xsl:template>
 
+  <xsl:template name="megler">
+    <div class="hovedseksjon">
+      <xsl:call-template name="seksjon">
+        <xsl:with-param name="tittel" select="'Melger'"/>
+      </xsl:call-template>
+      <div class="tabell innhold">
+        <div class="rad">
+          <div class="celle kol1">
+            <xsl:if test="megler/anvarligMegler">
+              <div style="padding-bottom:8px;">
+                <xsl:call-template name="organisasjon">
+                  <xsl:with-param name="organisasjon" select="megler"/>
+                </xsl:call-template>
+              </div>
+              <xsl:call-template name="kontaktperson">
+                <xsl:with-param name="kontakt" select="megler/anvarligMegler"/>
+                <xsl:with-param name="referanse" select="megler/referanse"/>
+              </xsl:call-template>
+            </xsl:if>
+          </div>
+          <div class="celle">
+            <xsl:if test="megler/oppgjorsavdeling">
+              <xsl:text>Oppgjør:&#x20;</xsl:text>
+              <div style="padding-bottom:8px;">
+                <xsl:call-template name="organisasjon">
+                  <xsl:with-param name="organisasjon" select="megler/oppgjorsavdeling"/>
+                </xsl:call-template>
+              </div>
+            </xsl:if>
+            <div>
+              <div>Referanse:</div>
+              <xsl:value-of select="megler/referanse"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </xsl:template>
 
+  <xsl:template name="type">
+    <xsl:if test="kjoepekontrakt">
+      <xsl:text>DSBM Kjøpekontrakt</xsl:text>
+    </xsl:if>
+    <xsl:if test="kjoepekontraktsforespoersel">
+      <xsl:text>DSBM Forespørsel om kjøpekontrakt</xsl:text>
+    </xsl:if>
+    <xsl:if test="saldoforespoersel">
+      <xsl:text>DSBM Forespørsel om saldo</xsl:text>
+    </xsl:if>
+    <xsl:if test="saldosvar">
+      <xsl:text>DSBM Saldosvar</xsl:text>
+    </xsl:if>
+    <xsl:if test="restgjeldsforespoersel">
+      <xsl:text>DSBM Forespørsel om restgjeld</xsl:text>
+    </xsl:if>
+    <xsl:if test="restgjeldssvar">
+      <xsl:text>DSBM Restgjeldssvar</xsl:text>
+    </xsl:if>
+  </xsl:template>
 </xsl:stylesheet>

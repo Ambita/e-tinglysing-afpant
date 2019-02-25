@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xsl" href="http://localhost:8000/xslt/dsbm-1.0.0.xslt"?>
-<saldoforespoersel-request>
+<saldoforespoersel>
+
   <megler id="945811714">
     <foretaksnavn>DNB Eiendom</foretaksnavn>
     <anvarligMegler>
@@ -15,6 +16,11 @@
     </oppgjorsavdeling>
   </megler>
 
+  <mottaker id="945811714">
+    <foretaksnavn>DNB Bank ASA</foretaksnavn>
+    <referanse>LN-123</referanse>
+  </mottaker>
+
   <registerenheter>
     <registerenhet>
       <matrikkel kommunenavn="Bergen" kommunenummer="1201" gaardsnummer="21" bruksnummer="1614" festenummer="1" seksjonsnummer="2" eiendomsnivaa="F"/>
@@ -25,7 +31,6 @@
       </adresse>
     </registerenhet>
   </registerenheter>
-
 
   <parter>
     <selgere>
@@ -52,8 +57,7 @@
     </hjemmelshavere>
   </parter>
 
-
-  <saldoforespoersel>
+  <saldoforespoerseldetaljer>
     <prisantyding>11000000</prisantyding>
     <salgssum>12500000</salgssum>
     <tinglyst>
@@ -79,9 +83,9 @@
         </panthaver>
       </pant>
     </tinglyst>
-  </saldoforespoersel>
+  </saldoforespoerseldetaljer>
 
   <metadata>
     <opprettet>2016-01-31T20:07:42</opprettet>
   </metadata>
-</saldoforespoersel-request>
+</saldoforespoersel>

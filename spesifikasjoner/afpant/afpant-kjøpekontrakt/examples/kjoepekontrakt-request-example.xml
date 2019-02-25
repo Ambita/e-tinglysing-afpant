@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xsl" href="http://localhost:8000/xslt/dsbm-1.0.0.xslt"?>
-<kjoepekontrakt-request>
+<kjoepekontraktsforespoersel>
   <avsender id="945811714">
     <foretaksnavn>DNB</foretaksnavn>
     <kontaktperson>
@@ -43,4 +43,4 @@
   <metadata>
     <opprettet>2016-01-31T20:07:42</opprettet>
   </metadata>
-</kjoepekontrakt-request>
+</kjoepekontraktsforespoersel>
